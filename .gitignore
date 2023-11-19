@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+wdio-logs
+*.log
+.DS_Store

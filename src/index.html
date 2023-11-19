@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * ; script-src * 'nonce-abc123' ; style-src * 'nonce-abc123' ;"
+    />
+    <style nonce="abc123">
+      .none {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    Hello
+    <div class="occurrences-1">word1 word2</div>
+    <div class="occurrences-2">word3 word4</div>
+    <div class="occurrences-2">word5 word6</div>
+    <button type="button" class="make-bigger">make larger</button>
+    <button type="button" class="open-window">open window</button>
+    <textarea class="none" rows="10" cols="80" data-testid="hidden-textarea"></textarea>
+    <div class="keypress-count" data-testid="keypress-count"></div>
+    <div class="click-count" data-testid="click-count">Bigger clicked: <span class="bigger">0</span></div>
+  </body>
+
+  <script nonce="abc123">
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('keydown', (event) => {
+        document.querySelector('.keypress-count').innerText += String.fromCharCode(event.keyCode);
+      });
+      document.querySelector('.make-bigger').addEventListener('click', () => {
+        const biggerClickCount = parseInt(document.querySelector('.bigger').innerText);
+        document.querySelector('.bigger').innerText = biggerClickCount + 1;
+      });
+      document.querySelector('.open-window').addEventListener('click', () => {
+        window.api.invoke('open-new-window');
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,79 @@
+{
+  "name": "wdio-electron-multi-window-example",
+  "version": "1.0.0",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "webpack && cp ./src/index.html ./dist && electron-builder -p never",
+    "ci": "pnpm build && pnpm test && pnpm lint",
+    "clean": "pnpm clean:dist && rm -rf ./node_modules ./all-logs",
+    "clean:dist": "rm -rf ./dist && mkdir -p ./dist",
+    "format": "prettier --write \"**/*.{j,t}s\"",
+    "lint": "eslint \"**/*.{j,t}s\"",
+    "prepare": "husky install",
+    "test": "wdio run ./wdio.conf.js || (cat ./wdio-logs/wdio-0-0.log && cat ./wdio-logs/wdio-chromedriver.log && exit 1)"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.14.0",
+    "@testing-library/webdriverio": "^3.0.5",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.3",
+    "@typescript-eslint/parser": "^5.30.3",
+    "@wdio/cli": "^7.20.5",
+    "@wdio/local-runner": "^7.20.5",
+    "@wdio/mocha-framework": "^7.20.3",
+    "debug": "^4.3.4",
+    "electron": "^20.0.0",
+    "electron-builder": "^23.1.0",
+    "electron-chromedriver": "^20.0.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.1.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-wdio": "^7.19.4",
+    "expect-webdriverio": "^3.4.0",
+    "global-jsdom": "^8.5.0",
+    "husky": "^8.0.1",
+    "jsdom": "^20.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4",
+    "wdio-electron-service": "^3.4.0",
+    "webdriverio": "^7.20.5",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix"
+    ],
+    "**/*.{yml,json,md,ts,js}": [
+      "prettier --write"
+    ]
+  },
+  "build": {
+    "asar": true,
+    "appId": "com.wdio-electron-multi-window-example.demo",
+    "copyright": "goosewobbler",
+    "productName": "wdio-electron-multi-window-example",
+    "files": [
+      "./dist/*"
+    ],
+    "linux": {
+      "executableName": "wdio-electron-multi-window-example",
+      "category": "Utility",
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}
