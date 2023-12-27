@@ -7,3 +7,10 @@ npm i
 npm run build
 npm run test
 ```
+
+For playwright test:
+
+```
+npx playwright install
+npx playwright test
+```
